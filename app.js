@@ -34,6 +34,14 @@ const tempDay = tempDate.getDate();
 
 const futureDate = new Date(tempYear, tempMonth, tempDay + 10, 11, 30, 0, 0);
 
+function format(item) {
+  if (item < 10) {
+    item = `0${item}`;
+    return item;
+  }
+  return item;
+}
+
 const year = futureDate.getFullYear();
 const hours = format(futureDate.getHours());
 const minutes = format(futureDate.getMinutes());
@@ -44,13 +52,6 @@ const weekday = weekdays[futureDate.getDay()];
 giveaway.textContent = `giveaway ends on ${weekday} ${date} ${month} ${year} ${hours}:${minutes}am`;
 
 const futureTime = futureDate.getTime();
-
-function format(item) {
-  if (item < 10) {
-    return item = `0${item}`;
-  }
-  return item;
-}
 
 function getRemainingTime() {
   const today = new Date().getTime();
@@ -72,12 +73,13 @@ function getRemainingTime() {
     item.innerHTML = format(values[index]);
   });
 
+  const countdown = setInterval(getRemainingTime, 1000);
+
   if (t < 0) {
     clearInterval(countdown);
     deadline.innerHTML = '<h4 class="expired">sorry this giveaway has expired</h4>';
   }
 }
 
-let countdown = setInterval(getRemainingTime, 1000);
 
 getRemainingTime();
